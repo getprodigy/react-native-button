@@ -23,6 +23,7 @@ class Button extends Component {
       PropTypes.element
     ]),
     accessibilityLabel: PropTypes.string,
+    testID: PropTypes.string,
     activeOpacity: PropTypes.number,
     allowFontScaling: PropTypes.bool,
     isLoading: PropTypes.bool,
@@ -46,6 +47,7 @@ class Button extends Component {
       if (typeof item === 'string' || typeof item === 'number') {
         const element = (
           <Text
+            testID={`${item}-text`}
             style={[styles.textButton, this.props.textStyle]}
             allowFontScaling={this.props.allowFontScaling}
             key={item}>
@@ -84,7 +86,7 @@ class Button extends Component {
   render() {
     if (this.props.isDisabled === true || this.props.isLoading === true) {
       return (
-        <View style={[styles.button, this.props.style, (this.props.disabledStyle || styles.opacity)]}>
+        <View testID={this.props.testID} style={[styles.button, this.props.style, (this.props.disabledStyle || styles.opacity)]}>
           {this._renderInnerText()}
         </View>
       );
@@ -92,6 +94,7 @@ class Button extends Component {
     // Extract Touchable props
     let touchableProps = {
       accessibilityLabel: this.props.accessibilityLabel,
+      testID: this.props.testID,
       onPress: this.props.onPress,
       onPressIn: this.props.onPressIn,
       onPressOut: this.props.onPressOut,
